@@ -6,4 +6,6 @@ import com.cwc.model.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer>{
 
+	Category findByCategoryCode(String categoryCode);
+
 }

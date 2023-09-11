@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,20 +19,21 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "category", schema = "marble_inventory_database")
+@Table(name = "categories", schema = "inventory_database")
 public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int categoryId;
 	
-	@Column(name = "categoryname")
-	@NotNull(message = "category name is required")
-	@Min(value=2, message="category:  min 2 word is required")
-	private String categoryname;
+	@Column(name = "category_name")
+	@NotNull
+	@NotEmpty(message="category name is required")
+	private String categoryName;
 	
 	@Column(name = "categoryCode")
-	@NotNull(message = "category Code is required")
+	@NotNull
+	@NotEmpty(message="category code is required")
 	private String categoryCode;
 	
 	@Column(name = "category_image")

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cwc.model.Category;
 import com.cwc.services.CategoryService;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -30,7 +31,7 @@ public class CategoryController {
 	private CategoryService productCategoryService;
 	
 	@PostMapping(value = "/")//,consumes = MediaType.APPLICATION_JSON_VALUE ,produces=MediaType.ALL_VALUE)
-	public ResponseEntity<Category> saveCategory(@RequestBody Category productCategory){
+	public ResponseEntity<Category> saveCategory(@Valid @RequestBody Category productCategory){
 		log.info("data from fronted app : " + productCategory.toString());
 		Category savedCategory = this.productCategoryService.addProductCategory(productCategory);
 		return new ResponseEntity<Category>(savedCategory,HttpStatus.OK);
@@ -50,7 +51,6 @@ public class CategoryController {
 	
 	@GetMapping(value = "/categories")// , consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.ALL_VALUE)
 	public ResponseEntity<List<Category>> getAllCategory(){
-		System.out.println("...............................method calling.....................................");
 		List<Category> allProductCategory = this.productCategoryService.getAllProductCategory();
 		return new ResponseEntity<List<Category>>(allProductCategory,HttpStatus.FOUND);
 	}
