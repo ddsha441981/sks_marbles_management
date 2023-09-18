@@ -22,8 +22,8 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:5500")
-@RequestMapping("/api/v1/category")// http://localhost:8091/api/v1/category/
+//@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/v1/category")
 @Slf4j
 public class CategoryController {
 	
@@ -37,7 +37,7 @@ public class CategoryController {
 		return new ResponseEntity<Category>(savedCategory,HttpStatus.OK);
 	}
 	
-	@PutMapping(value = "/{catId}")// , consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.ALL_VALUE)
+	@PutMapping(value = "/{catId}")
 	public ResponseEntity<Category> saveCategory(@RequestBody Category productCategory,@PathVariable("catId") int catId){
 		Category updatedProductCategory = this.productCategoryService.updateProductCategory(productCategory,catId);
 		return new ResponseEntity<Category>(updatedProductCategory,HttpStatus.OK);
@@ -46,13 +46,14 @@ public class CategoryController {
 	@GetMapping(value = "/{catId}")// , consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.ALL_VALUE)
 	public ResponseEntity<Category> getSingleCategory(@PathVariable("catId") int catId){
 		Category singleProductCategory = this.productCategoryService.getSingleProductCategory(catId);
-		return new ResponseEntity<Category>(singleProductCategory,HttpStatus.FOUND);
+		return new ResponseEntity<Category>(singleProductCategory,HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/categories")// , consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.ALL_VALUE)
+	@GetMapping(value = "/")// , consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.ALL_VALUE)
 	public ResponseEntity<List<Category>> getAllCategory(){
 		List<Category> allProductCategory = this.productCategoryService.getAllProductCategory();
-		return new ResponseEntity<List<Category>>(allProductCategory,HttpStatus.FOUND);
+		log.info("data from backend: {}", allProductCategory.toString());
+		return new ResponseEntity<List<Category>>(allProductCategory,HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{catId}")

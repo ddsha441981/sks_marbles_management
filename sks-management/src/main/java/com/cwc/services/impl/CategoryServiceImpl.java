@@ -43,8 +43,8 @@ public class CategoryServiceImpl implements CategoryService {
 				.orElseThrow(() -> new ResourceNotFoundException("Resource is not found!!!"));
 
 		category.setCategoryName(productCategory.getCategoryName());
-		category.setCategorydescription(productCategory.getCategorydescription());
-		category.setStatus(productCategory.getStatus());
+		category.setCategoryDescription(productCategory.getCategoryDescription());
+		category.setStatus(productCategory.isStatus());
 		return this.categoryRepository.save(category);
 		
 	}

@@ -1,5 +1,7 @@
 package com.cwc.model;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,14 +15,21 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 @Entity
+@ToString
 @Table(name = "categories", schema = "inventory_database")
-public class Category {
+public class Category implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,8 +49,8 @@ public class Category {
 	private String categoryImage;
 	
 	@Column(name = "category_description")
-	private String categorydescription;
+	private String categoryDescription;
 	
 	@Column(name = "status")
-	private Status status;
+	private boolean status ;
 }
