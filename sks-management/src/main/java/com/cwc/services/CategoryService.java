@@ -16,4 +16,7 @@ public interface CategoryService {
 		public  List<Category> getAllProductCategory();
 		//delete Category
 		public void deleteProductCategory(int catId);
+		
+		public List<Category> generatePdfData();
+		public List<Category> generateExcelData();
 }

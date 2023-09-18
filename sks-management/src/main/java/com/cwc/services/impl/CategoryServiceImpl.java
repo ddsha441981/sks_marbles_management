@@ -66,4 +66,14 @@ public class CategoryServiceImpl implements CategoryService {
 
 	}
 
+	@Override
+	public List<Category> generatePdfData() {
+		return this.categoryRepository.findAll();
+	}
+
+	@Override
+	public List<Category> generateExcelData() {
+		return this.categoryRepository.findAll();
+	}
+
 }

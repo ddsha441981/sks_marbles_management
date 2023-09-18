@@ -10,14 +10,32 @@ public class MyConfiguration {
 
 	@Bean
     public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/v1/**") // Define the URL patterns to apply CORS to
-                        .allowedOrigins("http://localhost:4200") // Replace with the actual URL of your Angular app
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowCredentials(true); // If you need to send cookies or authentication headers
-            }
-        };
-    }
+		 return new WebMvcConfigurer() {
+	            @Override
+	            public void addCorsMappings(CorsRegistry registry) {
+	                // First mapping
+	                registry
+	                    .addMapping("/api/v1/**")
+	                    .allowedHeaders("*")
+	                    .allowedOrigins("http://localhost:4200")
+	                    .allowedMethods("GET", "POST", "PUT", "DELETE")
+	                    .exposedHeaders("X-Get-Header")
+	                    .maxAge(3600L)
+	                    .allowCredentials(false);
+
+	                // Second mapping
+//	                registry
+//	                    .addMapping("/api/v1/category/**")
+//	                    .allowedHeaders("Requestor-Type")
+//	                    .exposedHeaders("X-Get-Header")
+//	                    .maxAge(3600L)
+//	                    .allowedOrigins("http://localhost:4200")
+//	                    .allowedMethods("GET", "POST")
+//	                    .maxAge(3600L)
+//	                    .allowCredentials(false);
+	                
+	                // Add more mappings here if needed
+	            }
+	        };
+	    }
 }
