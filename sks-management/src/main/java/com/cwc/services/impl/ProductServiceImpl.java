@@ -32,6 +32,7 @@ public class ProductServiceImpl implements ProductService {
 		products.setProductDescription(product.getProductDescription());
 		products.setProductCondition(product.getProductCondition());
 		products.setProductStatus(product.getProductStatus());
+		products.setUpdatedAt(product.getUpdatedAt());
 		Product updatedProduct = this.productRespository.save(products);
 		return updatedProduct;
 	}

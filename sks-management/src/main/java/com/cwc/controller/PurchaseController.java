@@ -48,6 +48,7 @@ public class PurchaseController {
 	@PostMapping("/")
 	public ResponseEntity<Purchase> addPurchaseProduct(@RequestBody Purchase purchase){
 		Purchase addedPurchase = this.purchaseService.addPurchase(purchase);
+		log.info("Product Purchase added with Id {}",purchase.getPurchaseId());
 		return new ResponseEntity<Purchase>(addedPurchase,HttpStatus.OK);
 	}
 	

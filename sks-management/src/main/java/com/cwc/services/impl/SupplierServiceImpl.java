@@ -27,6 +27,7 @@ public class SupplierServiceImpl implements SupplierService {
 		fetchSupplier.setSupplierName(supplier.getSupplierName());
 		fetchSupplier.setContactInfo(supplier.getContactInfo());
 		fetchSupplier.setLocationInfo(supplier.getLocationInfo());
+		fetchSupplier.setUpdatedAt(supplier.getUpdatedAt());
 		return this.supplierRespository.save(fetchSupplier);
 	}
 

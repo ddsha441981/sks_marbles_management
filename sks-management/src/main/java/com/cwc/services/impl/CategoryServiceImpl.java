@@ -1,5 +1,6 @@
 package com.cwc.services.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,7 @@ public class CategoryServiceImpl implements CategoryService {
 		category.setCategoryName(productCategory.getCategoryName());
 		category.setCategoryDescription(productCategory.getCategoryDescription());
 		category.setStatus(productCategory.getStatus());
+		category.setUpdatedAt(productCategory.getUpdatedAt());
 		return this.categoryRepository.save(category);
 
 	}

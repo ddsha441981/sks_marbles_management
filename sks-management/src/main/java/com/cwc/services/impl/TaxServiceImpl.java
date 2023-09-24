@@ -26,6 +26,7 @@ public class TaxServiceImpl implements TaxService {
 		Tax fetchedTex = this.taxRespository.findById(taxId).orElseThrow(()-> new ResourceNotFoundException("Resource not found with this tax id {} "));
 		fetchedTex.setTaxType(tax.getTaxType());
 		fetchedTex.setRate(tax.getRate());
+		fetchedTex.setUpdatedAt(tax.getUpdatedAt());
 		return this.taxRespository.save(fetchedTex);
 	}
 

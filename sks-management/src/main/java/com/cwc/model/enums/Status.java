@@ -1,4 +1,4 @@
-package com.cwc.model;
+package com.cwc.model.enums;
 
 public enum Status {
 
