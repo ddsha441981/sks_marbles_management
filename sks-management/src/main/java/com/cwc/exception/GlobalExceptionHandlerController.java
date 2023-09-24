@@ -10,9 +10,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class GlobalStudentExceptionHandlerController{// extends ResponseEntityExceptionHandler{
+public class GlobalExceptionHandlerController{// extends ResponseEntityExceptionHandler{
 
 
 	
@@ -28,30 +29,9 @@ public class GlobalStudentExceptionHandlerController{// extends ResponseEntityEx
 		return new ResponseEntity<Map<String, String>>(resp, HttpStatus.BAD_REQUEST);
 	}
 	
-//	@ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ResponseEntity<ApiResponse> handleMethodArgsNotValidException(MethodArgumentNotValidException ex) {
-//        Map<String, String> errors = new HashMap<>();
-//        ex.getBindingResult().getAllErrors().forEach((error) -> {
-//            String fieldName = ((FieldError) error).getField();
-//            String message = error.getDefaultMessage();
-//            
-//            errors.put(fieldName, message);
-//        });
-//		
-//        ApiResponse response = new ApiResponse();
-//        response.setStatusCode(HttpStatus.BAD_REQUEST.value());
-//        response.setTimestamp(new Date());
-//        response.setMessage("Bad Request");
-////        response.setErrors(errors);
-//        response.getDescription();
-//        response.setPath(""); // Set the appropriate path if needed
-//
-//        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-//    }
-//	
-	
 	
 	@ExceptionHandler(DuplicateCategoryException.class)
+	@ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<ApiResponse> handleDuplicateCategoryException(DuplicateCategoryException ex) {
         Map<String, Object> responseValues = new HashMap<>();
         responseValues.put("statusCode", HttpStatus.CONFLICT.value());
@@ -66,9 +46,10 @@ public class GlobalStudentExceptionHandlerController{// extends ResponseEntityEx
     }
 	
 	@ExceptionHandler(ResourceNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ApiResponse> handleResourceNotFoundException(ResourceNotFoundException ex) {
         Map<String, Object> responseValues = new HashMap<>();
-        responseValues.put("statusCode", HttpStatus.CONFLICT.value());
+        responseValues.put("statusCode", HttpStatus.NOT_FOUND.value());
         responseValues.put("timestamp", new Date());
         responseValues.put("message", "Conflict");
         responseValues.put("description", ex.getMessage());
@@ -76,7 +57,7 @@ public class GlobalStudentExceptionHandlerController{// extends ResponseEntityEx
 
         ApiResponse response = buildApiResponse(responseValues);
 
-        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     private ApiResponse buildApiResponse(Map<String, Object> responseValues) {

@@ -22,16 +22,21 @@ public class CategoryServiceImpl implements CategoryService {
 	public Category addProductCategory(Category productCategory) {
 		String categoryCode = productCategory.getCategoryCode();
 
-        // Check if a category with the same code already exists
-        Category existingCategoryCode = categoryRepository.findByCategoryCode(categoryCode);
+		// Check if a category with the same code already exists
+		Category existingCategoryCode = categoryRepository.findByCategoryCode(categoryCode);
 
-        if (existingCategoryCode != null)
-            throw new DuplicateCategoryException("Category with code " + categoryCode + " already exists.");
+		if (existingCategoryCode != null)
+			throw new DuplicateCategoryException("Category with code " + categoryCode + " already exists.");
 
-        String categoryName = productCategory.getCategoryName();
-        String generateCategoryCode = CategoryCode.generateCategoryCode(categoryName);
-       
-        productCategory.setCategoryCode(generateCategoryCode);
+		String categoryName = productCategory.getCategoryName();
+		String generateCategoryCode = CategoryCode.generateCategoryCode(categoryName);
+		productCategory.setCategoryCode(generateCategoryCode);
+		// file uploading
+
+//		productCategory.setFileType(file.getContentType());
+//		productCategory.setFileName(file.getOriginalFilename());
+//		productCategory.setCategoryImage(ImageUtil.compressImage(file.getBytes()));
+
 		productCategory.setCategoryImage("default.png");
 		Category savedCategory = this.categoryRepository.save(productCategory);
 		return savedCategory;
@@ -44,9 +49,9 @@ public class CategoryServiceImpl implements CategoryService {
 
 		category.setCategoryName(productCategory.getCategoryName());
 		category.setCategoryDescription(productCategory.getCategoryDescription());
-		category.setStatus(productCategory.isStatus());
+		category.setStatus(productCategory.getStatus());
 		return this.categoryRepository.save(category);
-		
+
 	}
 
 	@Override
@@ -57,7 +62,8 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public List<Category> getAllProductCategory() {
-		return this.categoryRepository.findAll();
+		List<Category> list = this.categoryRepository.findAll();
+		return list;
 	}
 
 	@Override
